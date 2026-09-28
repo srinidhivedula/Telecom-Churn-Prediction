@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS4: Telco Churn Predictor</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 40px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 500px; }
+        h2 { color: #1a73e8; margin-top: 0; }
+        .info-label { font-size: 0.8em; color: #666; font-style: italic; margin-bottom: 15px; display: block; }
+        .driver { border-left: 4px solid #1a73e8; padding-left: 10px; font-weight: bold; }
+        select, input { width: 100%; padding: 10px; margin: 8px 0 18px 0; border: 1px solid #ddd; border-radius: 6px; }
+        button { width: 100%; padding: 14px; background: #1a73e8; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Customer Churn Risk</h2>
+        <span class="info-label">* Fields marked with blue bars drive the prediction logic.</span>
+        
+        <form action="/predict" method="POST">
+            <label class="driver">Tenure (Months)</label>
+            <input type="number" name="tenure" value="12" required>
+
+            <label class="driver">Senior Citizen?</label>
+            <select name="SeniorCitizen">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label class="driver">Partner & Dependents</label>
+            <select name="Partner"><option value="No">Has Partner: No</option><option value="Yes">Yes</option></select>
+            <select name="Dependents"><option value="No">Has Dependents: No</option><option value="Yes">Yes</option></select>
+
+            <label class="driver">Online Security & Backup</label>
+            <select name="OnlineSecurity">
+                <option value="No">Online Security: No</option>
+                <option value="Yes">Yes</option>
+                <option value="No internet service">No Internet</option>
+            </select>
+            <select name="OnlineBackup">
+                <option value="No">Online Backup: No</option>
+                <option value="Yes">Yes</option>
+                <option value="No internet service">No Internet</option>
+            </select>
+
+            <label>Gender (Info Only)</label>
+            <select name="gender"><option value="Male">Male</option><option value="Female">Female</option></select>
+
+            <label>Internet Service (Info Only)</label>
+            <select name="InternetService">
+                <option value="Fiber optic">Fiber optic</option>
+                <option value="DSL">DSL</option>
+                <option value="No">No</option>
+            </select>
+
+            <button type="submit">Analyze Churn Risk</button>
+        </form>
+    </div>
+</body>
+</html>

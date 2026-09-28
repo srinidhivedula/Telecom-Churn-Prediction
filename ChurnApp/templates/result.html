@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS4: Analysis Result</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .result-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        h1 { color: #2c3e50; margin-bottom: 20px; }
+        
+        .status-box { padding: 15px; border-radius: 8px; margin-bottom: 25px; font-size: 20px; font-weight: bold; }
+        /* Dynamic classes for the status message */
+        .risk-high { background-color: #fadbd8; color: #c0392b; border: 1px solid #e74c3c; }
+        .risk-low { background-color: #d4efdf; color: #27ae60; border: 1px solid #2ecc71; }
+
+        .prob-container { margin: 30px 0; }
+        .prob-label { font-size: 16px; color: #7f8c8d; margin-bottom: 10px; display: block; }
+        .prob-value { font-size: 36px; font-weight: bold; color: #2c3e50; }
+
+        /* Progress Bar Styling */
+        .progress-bg { background-color: #ecf0f1; border-radius: 10px; height: 20px; width: 100%; margin-top: 15px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 10px; transition: width 1s ease-in-out; }
+
+        .back-btn { display: inline-block; margin-top: 30px; text-decoration: none; color: #3498db; font-weight: 600; padding: 10px 20px; border: 2px solid #3498db; border-radius: 8px; transition: all 0.3s; }
+        .back-btn:hover { background-color: #3498db; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="result-card">
+    <h1>Analysis Result</h1>
+
+    <div class="status-box {% if 'YES' in prediction %}risk-high{% else %}risk-low{% endif %}">
+        {{ prediction }}
+    </div>
+
+    <div class="prob-container">
+        <span class="prob-label">Churn Probability</span>
+        <span class="prob-value">{{ churn_prob }}%</span>
+        
+        <div class="progress-bg">
+            <div class="progress-fill" 
+                 style="width: {{ churn_prob }}%; 
+                        background-color: {% if churn_prob > 50 %}#e74c3c{% else %}#2ecc71{% endif %};">
+            </div>
+        </div>
+    </div>
+
+    <p style="color: #95a5a6; font-size: 13px;">
+        *Based on analysis of high-impact attributes: Tenure, SeniorCitizen, Family Status, and Security Services.
+    </p>
+
+    <a href="/" class="back-btn">Analyze New Customer</a>
+</div>
+
+</body>
+</html>
